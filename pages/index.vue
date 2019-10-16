@@ -7,17 +7,17 @@
     </div>
     <b-row>
       <b-col cols="3">
-        <b-img class="img-placeholder img-thumbnail"></b-img>
+        <b-img v-if="!hasImage" class="img-placeholder img-thumbnail d-print-none"></b-img>
         <image-uploader
             :preview="true"
-            :className="['fileinput', { 'fileinput--loaded': hasImage }]"
+            :className="['fileinput', { 'fileinput--loaded': hasImage }, 'd-print-none']"
             capture="environment"
             doNotResize="gif"
             :autoRotate="true"
             outputFormat="verbose"
             @input="setImage"
         >
-          <label for="fileInput" slot="upload-label" id="img-upload-trigger" :class="{ uploaded: hasImage }">
+          <label slot="upload-label" id="img-upload-trigger" :class="['d-print-none', { uploaded: hasImage }]">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"
@@ -34,6 +34,12 @@
         </image-uploader>
       </b-col>
       <b-col>
+        <b-form inline class="mb-3 text-black-50" style="padding-left: 110px;">
+          <label>Info From:</label>
+          <b-form-input placeholder="Enter your name"></b-form-input>
+          <label>Date:</label>
+          <date-picker :config="{format:'MM/DD/YYYY'}" placeholder="MM/DD/YYYY" value=""></date-picker>
+        </b-form>
         <b-form>
           <b-form-group label="Name:">
             <b-form-input placeholder="Enter name"></b-form-input>
@@ -51,28 +57,41 @@
     <b-row class="mt-4">
       <b-col>
         <b-form>
-          <b-form-group label="Current Address:">
+          <b-form-group label="Last Known Address:">
             <b-form-input placeholder="Enter street address"></b-form-input>
             <b-form-input placeholder="Enter apt. #"></b-form-input>
             <b-form-input placeholder="Enter city"></b-form-input>
             <b-form-input placeholder="Enter state"></b-form-input>
             <b-form-input placeholder="Enter zip code"></b-form-input>
           </b-form-group>
-          <b-form-group label="Current Phone Number:">
+          <b-form-group label="Last Known Phone Number:">
             <b-form-input type="tel" placeholder="+1 (555) 555-5555"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Religion:">
+            <b-form-input placeholder="Enter religion"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Occupation:">
+            <b-form-input placeholder="Enter occupation"></b-form-input>
           </b-form-group>
         </b-form>
       </b-col>
-      <b-col>
+      <b-col style="border-left: 1px solid grey">
         <b-form>
-          <b-form-group label="Father's Name:">
+          <b-form-group label="Father:">
             <b-form-input placeholder="Enter father's name"></b-form-input>
           </b-form-group>
-          <b-form-group label="Mother's Name:">
+          <b-form-group label="Mother:">
             <b-form-input placeholder="Enter mother's name"></b-form-input>
           </b-form-group>
           <b-form-group label="Date Of Birth:">
-            <date-picker></date-picker>
+            <date-picker :config="{format:'MM/DD/YYYY'}" placeholder="MM/DD/YYYY" value=""></date-picker>
+          </b-form-group>
+          <b-form-group label="Place of Birth:">
+            <b-form-input placeholder="Enter street address"></b-form-input>
+            <b-form-input placeholder="Enter apt. #"></b-form-input>
+            <b-form-input placeholder="Enter city"></b-form-input>
+            <b-form-input placeholder="Enter state"></b-form-input>
+            <b-form-input placeholder="Enter zip code"></b-form-input>
           </b-form-group>
         </b-form>
       </b-col>
@@ -81,7 +100,7 @@
       <b-col>
         <h5 class="mt-4">Education</h5>
         <div v-for="index in schoolCounter">
-          <b-form inline>
+          <b-form :id="`${index}-school-form`" inline>
             <label>School Name:</label>
             <b-input placeholder="Enter school name"></b-input>
             <label>Degree:</label>
@@ -90,14 +109,14 @@
             <b-input type="number" placeholder="Enter graduation year"></b-input>
           </b-form>
         </div>
-        <b-button variant="secondary" class="mt-4" @click="schoolCounter++">Add School</b-button>
+        <b-button variant="secondary" class="mt-4 d-print-none" @click="schoolCounter++">Add School</b-button>
       </b-col>
     </b-row>
     <b-row>
       <b-col>
         <h5 class="mt-4">Work History</h5>
         <div v-for="index in jobCounter">
-          <b-form inline>
+          <b-form :id="`${index}-job-form`" inline>
             <label>Title:</label>
             <b-input placeholder="Enter job title"></b-input>
             <label>Employer:</label>
@@ -106,7 +125,7 @@
             <b-input type="number" placeholder="Enter years of employment"></b-input>
           </b-form>
         </div>
-        <b-button variant="secondary" class="mt-4" @click="jobCounter++">Add Job</b-button>
+        <b-button variant="secondary" class="mt-4 d-print-none" @click="jobCounter++">Add Job</b-button>
       </b-col>
     </b-row>
   </div>

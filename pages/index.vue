@@ -17,7 +17,7 @@
             outputFormat="verbose"
             @input="setImage"
         >
-          <label slot="upload-label" id="img-upload-trigger" :class="['d-print-none', { uploaded: hasImage }]">
+          <label for="fileInput" slot="upload-label" id="img-upload-trigger" :class="['d-print-none', { uploaded: hasImage }]">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"
